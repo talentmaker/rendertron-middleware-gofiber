@@ -203,8 +203,8 @@ func New(options ...Options) fiber.Handler {
 			return err
 		}
 
-		ctx.Status(200).Send(body)
+		ctx.Set(fiber.HeaderContentType, fiber.MIMETextHTML)
 
-		return nil
+		return ctx.Status(200).SendString(string(body))
 	}
 }
