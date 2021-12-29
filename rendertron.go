@@ -95,6 +95,9 @@ type Options struct {
 	//
 	// Defaults to "X-Forwarded-Host".
 	ForwardedHostHeader string `json:"forwardedHostHeader"`
+
+	// If protocol should be forced into using HTTPS.
+	ForceHTTPS bool `json:"forceHTTPS"`
 }
 
 const (
@@ -184,7 +187,15 @@ func New(options ...Options) fiber.Handler {
 			host = string(ctx.Request().Header.Host())
 		}
 
-		incomingUrl := ctx.Protocol() + "://" + host + ctx.OriginalURL()
+		var protocol string
+
+		if config.ForceHTTPS {
+			protocol = "https"
+		} else {
+			protocol = ctx.Protocol()
+		}
+
+		incomingUrl := protocol + "://" + host + ctx.OriginalURL()
 		renderUrl := proxyUrl + url.QueryEscape(incomingUrl)
 
 		if injectShadyDom {
