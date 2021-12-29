@@ -35,6 +35,14 @@ var BotUserAgents = []string{
 	"vkShare",
 	"W3C_Validator",
 	"WhatsApp",
+	"Discordbot",
+	"Slurp",
+	"Yahoo",
+	"DuckDuckBot",
+	"YandexBot",
+	"Konqueror",
+	"Exabot",
+	"ia_archiver",
 }
 
 // A default set of file extensions for static assets that do not need to be proxied.
